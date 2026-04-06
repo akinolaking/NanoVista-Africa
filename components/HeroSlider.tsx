@@ -1,281 +1,138 @@
-"use client";
-import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+'use client'
 
-const slides = [
+import { useState, useEffect, useCallback, useRef } from 'react'
+import Image from 'next/image'
+
+const SLIDES = [
   {
-    id: 1,
-    bg: "#1a1a1a",
-    accent: "#e30613",
-    eyebrow: "NEW COLLECTION 2025",
-    headline: "INDESTRUCTIBLE.\nFLEXIBLE.\nFOR EVERY CHILD.",
-    sub: "Nano Indestructible — the frame that survives every adventure.",
-    cta: "EXPLORE COLLECTION",
-    ctaHref: "/collections/nano-indestructible",
-    badge: "BABIES · KIDS · TEENS",
-    visual: "glasses-hero",
-    pattern: "dots",
+    src: '/images/slide-1-clip.jpg',
+    alt: 'Nano Clip — prescription glasses with solar clip for children',
   },
   {
-    id: 2,
-    bg: "#0d1b2a",
-    accent: "#f7941d",
-    eyebrow: "MYOPIA MANAGEMENT",
-    headline: "PROTECT\nYOUR CHILD'S\nVISION TODAY.",
-    sub: "Advanced myopia management lenses — clinically proven for children.",
-    cta: "LEARN MORE",
-    ctaHref: "/collections/myopia-management",
-    badge: "AGES 6–16",
-    visual: "myopia-hero",
-    pattern: "waves",
+    src: '/images/slide-2-indestructible.jpg',
+    alt: 'Nano Indestructible — unbreakable flexible frames for children',
   },
   {
-    id: 3,
-    bg: "#1e3a2f",
-    accent: "#4caf50",
-    eyebrow: "NANO SPORT",
-    headline: "BUILT FOR\nATHLETES.\nAGED 4+",
-    sub: "Sports protective eyewear — prescription available. Zero compromises.",
-    cta: "SHOP NANO SPORT",
-    ctaHref: "/collections/nano-sport",
-    badge: "SPORTS · OUTDOOR",
-    visual: "sport-hero",
-    pattern: "grid",
+    src: '/images/slide-3-myopia.jpg',
+    alt: 'MYOP-K — myopia management lenses for children',
   },
   {
-    id: 4,
-    bg: "#2a1a0d",
-    accent: "#e30613",
-    eyebrow: "FIND YOUR NEAREST STOCKIST",
-    headline: "NANOVISTA\nACROSS NIGERIA\n& WEST AFRICA.",
-    sub: "Authorized optical stores stocking NanoVista. Now closer to you.",
-    cta: "FIND A STORE",
-    ctaHref: "/find-a-store",
-    badge: "LAGOS · ABUJA · ACCRA · MORE",
-    visual: "map-hero",
-    pattern: "africa",
+    src: '/images/slide-4-sport.jpg',
+    alt: 'Nano Sport — protective sports eyewear for children',
   },
-];
+] as const
 
-const BackgroundVisual = ({
-  type,
-  accent,
-  pattern,
-}: {
-  type: string;
-  accent: string;
-  pattern: string;
-}) => {
-  const patternEl =
-    pattern === "dots" ? (
-      <svg
-        className="absolute inset-0 w-full h-full opacity-5"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <pattern id="dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="2" fill="white" />
-        </pattern>
-        <rect width="100%" height="100%" fill="url(#dots)" />
-      </svg>
-    ) : pattern === "waves" ? (
-      <svg
-        className="absolute bottom-0 left-0 w-full opacity-10"
-        viewBox="0 0 1440 200"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M0,100 C360,200 720,0 1080,100 C1260,150 1380,80 1440,100 L1440,200 L0,200 Z"
-          fill="white"
-        />
-      </svg>
-    ) : pattern === "grid" ? (
-      <svg
-        className="absolute inset-0 w-full h-full opacity-5"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M40 0 L0 0 0 40" fill="none" stroke="white" strokeWidth="1" />
-        </pattern>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-      </svg>
-    ) : (
-      // Africa outline shape
-      <svg
-        className="absolute right-0 top-0 h-full opacity-5"
-        viewBox="0 0 400 600"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M200,20 C280,20 340,60 350,120 C360,180 330,200 340,240 C350,280 380,300 370,360 C360,420 320,460 280,500 C240,540 200,570 180,560 C140,545 100,500 80,460 C60,420 70,380 60,340 C50,300 30,280 40,240 C50,200 80,180 90,140 C100,80 120,20 200,20Z"
-          fill="white"
-        />
-      </svg>
-    );
-
-  const glassIcon = (
-    <svg viewBox="0 0 200 80" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="55" cy="40" r="30" fill="none" stroke={accent} strokeWidth="6" opacity="0.8" />
-      <circle cx="145" cy="40" r="30" fill="none" stroke={accent} strokeWidth="6" opacity="0.8" />
-      <line x1="85" y1="40" x2="115" y2="40" stroke={accent} strokeWidth="5" />
-      <line x1="10" y1="35" x2="25" y2="40" stroke={accent} strokeWidth="4" strokeLinecap="round" />
-      <line x1="175" y1="40" x2="190" y2="35" stroke={accent} strokeWidth="4" strokeLinecap="round" />
-    </svg>
-  );
-
-  return (
-    <div className="absolute inset-0 flex items-center justify-end pr-8 md:pr-20">
-      {patternEl}
-      <div
-        className="w-48 h-20 md:w-72 md:h-28 opacity-20"
-        style={{ filter: "drop-shadow(0 0 40px " + accent + ")" }}
-      >
-        {glassIcon}
-      </div>
-    </div>
-  );
-};
+const AUTOPLAY_MS = 5500
 
 export default function HeroSlider() {
-  const [current, setCurrent] = useState(0);
-  const [animating, setAnimating] = useState(false);
+  const [current, setCurrent] = useState(0)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const touchStartX = useRef(0)
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (animating) return;
-      setAnimating(true);
-      setCurrent(index);
-      setTimeout(() => setAnimating(false), 700);
-    },
-    [animating]
-  );
+  const go = useCallback((n: number) => {
+    setCurrent(((n % SLIDES.length) + SLIDES.length) % SLIDES.length)
+  }, [])
 
-  const next = useCallback(() => {
-    goTo((current + 1) % slides.length);
-  }, [current, goTo]);
+  const next = useCallback(() => go(current + 1), [current, go])
+  const prev = useCallback(() => go(current - 1), [current, go])
 
-  const prev = useCallback(() => {
-    goTo((current - 1 + slides.length) % slides.length);
-  }, [current, goTo]);
+  /* Autoplay */
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
+      setCurrent((c) => (c + 1) % SLIDES.length)
+    }, AUTOPLAY_MS)
+  }, [])
 
   useEffect(() => {
-    const t = setInterval(next, 6000);
-    return () => clearInterval(t);
-  }, [next]);
+    resetTimer()
+    return () => { if (timerRef.current) clearInterval(timerRef.current) }
+  }, [resetTimer])
 
-  const slide = slides[current];
+  /* Keyboard */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft')  { prev(); resetTimer() }
+      if (e.key === 'ArrowRight') { next(); resetTimer() }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [next, prev, resetTimer])
+
+  const handleSlide = (n: number) => { go(n); resetTimer() }
 
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{
-        backgroundColor: slide.bg,
-        minHeight: "clamp(420px, 60vw, 620px)",
-        transition: "background-color 0.65s ease",
+      id="home"
+      className="relative w-full overflow-hidden bg-light"
+      style={{ height: 'clamp(220px, 44vw, 580px)' }}
+      aria-label="Featured collections"
+      onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX }}
+      onTouchEnd={(e) => {
+        const diff = touchStartX.current - e.changedTouches[0].clientX
+        if (Math.abs(diff) > 44) { diff > 0 ? next() : prev(); resetTimer() }
       }}
     >
-      <BackgroundVisual
-        type={slide.visual}
-        accent={slide.accent}
-        pattern={slide.pattern}
-      />
-
-      {/* Diagonal accent stripe */}
+      {/* Track */}
       <div
-        className="absolute top-0 right-0 w-2/5 h-full opacity-10"
-        style={{
-          background: `linear-gradient(135deg, transparent 40%, ${slide.accent} 40%)`,
-          transition: "background 0.65s ease",
-        }}
-      />
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center h-full"
-        style={{ minHeight: "clamp(420px, 60vw, 620px)" }}
+        className="flex h-full transition-transform duration-700 ease-spring will-change-transform"
+        style={{ transform: `translateX(-${current * 100}%)`, width: `${SLIDES.length * 100}%` }}
       >
-        <div key={current} className="animate-fadeSlide max-w-2xl py-16">
-          {/* Eyebrow */}
-          <div
-            className="inline-flex items-center gap-2 text-xs font-heading font-bold tracking-[0.2em] mb-4 px-3 py-1"
-            style={{ color: slide.accent, border: `1px solid ${slide.accent}` }}
-          >
-            {slide.eyebrow}
+        {SLIDES.map((slide, i) => (
+          <div key={slide.src} className="relative h-full" style={{ width: `${100 / SLIDES.length}%` }}>
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              className="object-cover object-top"
+              priority={i === 0}
+              sizes="100vw"
+            />
           </div>
-
-          {/* Headline */}
-          <h1
-            className="text-4xl md:text-6xl lg:text-7xl font-heading font-black text-white leading-none mb-6 whitespace-pre-line"
-            style={{ textShadow: "0 4px 24px rgba(0,0,0,0.4)" }}
-          >
-            {slide.headline}
-          </h1>
-
-          {/* Sub */}
-          <p className="text-gray-300 text-base md:text-lg mb-8 max-w-md font-light leading-relaxed">
-            {slide.sub}
-          </p>
-
-          {/* Badge */}
-          <div className="flex flex-wrap items-center gap-4 mb-8">
-            <span
-              className="text-xs font-heading font-bold tracking-wider px-3 py-1 rounded-full"
-              style={{ background: `${slide.accent}22`, color: slide.accent }}
-            >
-              {slide.badge}
-            </span>
-          </div>
-
-          {/* CTA */}
-          <div className="flex flex-wrap gap-4">
-            <a
-              href={slide.ctaHref}
-              className="inline-flex items-center gap-2 text-sm font-heading font-bold px-8 py-4 text-white tracking-wider transition-all hover:scale-105"
-              style={{ background: slide.accent }}
-            >
-              {slide.cta}
-              <span>→</span>
-            </a>
-            <a
-              href="/find-a-store"
-              className="inline-flex items-center gap-2 text-sm font-heading font-bold px-8 py-4 border border-gray-600 text-gray-300 hover:border-white hover:text-white transition-colors tracking-wider"
-            >
-              FIND A STORE
-            </a>
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* Controls */}
-      <div className="absolute bottom-6 left-6 md:left-12 flex items-center gap-4 z-20">
-        {slides.map((_, i) => (
+      {/* Dots */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-10" role="tablist" aria-label="Slide navigation">
+        {SLIDES.map((_, i) => (
           <button
             key={i}
-            onClick={() => goTo(i)}
-            className="transition-all duration-300"
+            role="tab"
+            aria-selected={i === current}
+            aria-label={`Slide ${i + 1}`}
+            onClick={() => handleSlide(i)}
+            className="h-[10px] rounded-[5px] border-none cursor-pointer transition-all duration-300 p-0"
             style={{
-              width: i === current ? "32px" : "8px",
-              height: "8px",
-              borderRadius: "4px",
-              background: i === current ? slide.accent : "rgba(255,255,255,0.3)",
+              width: i === current ? '32px' : '10px',
+              background: i === current ? '#8dc63f' : 'rgba(255,255,255,0.48)',
             }}
-            aria-label={`Go to slide ${i + 1}`}
           />
         ))}
       </div>
 
+      {/* Prev arrow */}
       <button
-        onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
-        aria-label="Previous"
+        onClick={() => { prev(); resetTimer() }}
+        aria-label="Previous slide"
+        className="absolute left-[18px] top-1/2 -translate-y-1/2 z-10 w-[46px] h-[46px] rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-primary hover:scale-105 backdrop-blur-sm"
+        style={{ background: 'rgba(0,0,0,0.22)', border: '1.5px solid rgba(255,255,255,0.3)' }}
       >
-        <ChevronLeft size={20} />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 3L5 8L10 13" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       </button>
+
+      {/* Next arrow */}
       <button
-        onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
-        aria-label="Next"
+        onClick={() => { next(); resetTimer() }}
+        aria-label="Next slide"
+        className="absolute right-[18px] top-1/2 -translate-y-1/2 z-10 w-[46px] h-[46px] rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-primary hover:scale-105 backdrop-blur-sm"
+        style={{ background: 'rgba(0,0,0,0.22)', border: '1.5px solid rgba(255,255,255,0.3)' }}
       >
-        <ChevronRight size={20} />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M6 3L11 8L6 13" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       </button>
     </section>
-  );
+  )
 }

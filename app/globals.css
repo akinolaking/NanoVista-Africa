@@ -1,57 +1,271 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap');
+/* ================================================================
+   NanoVista Africa — Global Styles
+   TypeUI Paper Design base with NanoVista brand token overrides
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Nunito:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── CSS Custom Properties (Paper Design tokens, NanoVista overrides) ── */
 :root {
-  --nano-red: #e30613;
-  --nano-dark: #1a1a1a;
-  --nano-mid: #333333;
-  --nano-light: #f7f7f7;
-  --nano-orange: #f7941d;
+  /* Brand */
+  --color-primary:      #8dc63f;
+  --color-primary-dark: #6aaa1e;
+  --color-purple:       #9b59b6;
+  --color-surface:      #ffffff;
+  --color-light:        #f4f4f4;
+  --color-muted:        #888888;
+  --color-body:         #333333;
+
+  /* Paper semantic */
+  --color-success: #16A34A;
+  --color-warning: #D97706;
+  --color-danger:  #DC2626;
+
+  /* Shadows */
+  --shadow-card:  0 8px 32px rgba(0,0,0,.10);
+  --shadow-hover: 0 16px 48px rgba(141,198,63,.28);
+  --shadow-green: 0 4px 24px rgba(141,198,63,.35);
+
+  /* Radius */
+  --radius-card: 16px;
+  --radius-pill: 30px;
+
+  /* Spacing — Paper 4px base */
+  --space-section:    100px;
+  --space-section-sm: 72px;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Open Sans', sans-serif; color: #1a1a1a; background: #fff; }
-h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
-
-@keyframes fadeSlide {
-  0% { opacity: 0; transform: translateX(24px); }
-  100% { opacity: 1; transform: translateX(0); }
+/* ── Base reset (Paper Design) ── */
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
 }
-.animate-fadeSlide { animation: fadeSlide 0.55s ease forwards; }
-.animate-fadeUp { animation: fadeUp 0.6s ease forwards; }
 
-.nav-link { position: relative; }
-.nav-link::after {
-  content: ''; position: absolute; bottom: -4px; left: 0;
-  width: 0; height: 2px; background: #e30613;
-  transition: width 0.25s ease;
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--color-body);
+  background: var(--color-surface);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.nav-link:hover::after { width: 100%; }
 
-.dropdown { position: relative; }
-.dropdown-menu {
-  display: none; position: absolute; top: 100%; left: 0;
-  min-width: 240px; background: #fff; box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-  z-index: 100; border-top: 3px solid #e30613;
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
 }
-.dropdown:hover .dropdown-menu { display: block; }
 
-.card-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-
-.slider-track { display: flex; transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+img {
+  display: block;
+  max-width: 100%;
 }
-.ticker-inner { animation: ticker 25s linear infinite; display: flex; width: max-content; }
-.ticker-inner:hover { animation-play-state: paused; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* ── Scroll Reveal utility classes ── */
+@layer utilities {
+  .sr {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .sr.on {
+    opacity: 1;
+    transform: none;
+  }
+  .sr-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .sr-left.on {
+    opacity: 1;
+    transform: none;
+  }
+  .sr-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .sr-right.on {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Staggered reveal delays */
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+  .d4 { transition-delay: 0.4s; }
+  .d5 { transition-delay: 0.5s; }
+
+  /* Outlined text — NanoVista brand signature */
+  .text-outline-green {
+    -webkit-text-stroke: 3px #8dc63f;
+    color: transparent;
+  }
+  .text-outline-white {
+    -webkit-text-stroke: 2.5px #ffffff;
+    color: transparent;
+  }
+
+  /* Parallax — disable on mobile (iOS fix) */
+  .parallax-fixed {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Dot texture overlay — used on green sections */
+  .dot-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,.1) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* ── Paper component base classes ── */
+@layer components {
+
+  /* Kicker label */
+  .kicker {
+    @apply inline-block font-heading font-bold text-xs tracking-widest uppercase;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+  }
+  .kicker::before, .kicker::after {
+    content: '—';
+    margin: 0 8px;
+    opacity: 0.5;
+  }
+  .kicker-white {
+    @apply kicker;
+    color: rgba(255,255,255,0.8);
+  }
+  .kicker-white::before, .kicker-white::after {
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* Pill button — Paper playful preset radius */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply font-heading font-extrabold text-xs tracking-widest uppercase;
+    @apply transition-all duration-200;
+    padding: 15px 40px;
+    border-radius: var(--radius-pill);
+    border: 2.5px solid transparent;
+    white-space: nowrap;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .btn-primary {
+    @apply btn;
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+  }
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-green);
+  }
+  .btn-outline-white {
+    @apply btn;
+    background: transparent;
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.65);
+  }
+  .btn-outline-white:hover {
+    background: #ffffff;
+    color: var(--color-primary);
+    border-color: #ffffff;
+    transform: translateY(-3px);
+  }
+
+  /* Collection card — Paper card with NanoVista hover */
+  .col-card {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    display: block;
+    text-decoration: none;
+  }
+  .col-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Contact card — Paper surface card */
+  .contact-card {
+    background: var(--color-light);
+    border-radius: var(--radius-card);
+    padding: 36px 28px;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.2s;
+  }
+  .contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    background: #f0fff0;
+  }
+
+  /* Stat cell — Paper data display */
+  .stat-cell {
+    background: #ffffff;
+    padding: 28px 20px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .stat-cell:hover {
+    background: #f9fff0;
+  }
+}
+
+/* ── Testimonial fade animation ── */
+@keyframes testiFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.testi-fresh {
+  animation: testiFade 0.5s ease forwards;
+}
+
+/* ── Mobile: disable parallax fixed (iOS bug) ── */
+@media (max-width: 900px) {
+  .parallax-fixed {
+    background-attachment: scroll;
+  }
+}
