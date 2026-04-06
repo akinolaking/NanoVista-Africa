@@ -28,7 +28,7 @@ export default function Home() {
 
         {/* Parallax break 1 */}
         <ParallaxBreak
-          imageUrl="https://nano-vista.com/wp-content/uploads/2024/09/Imagen_HomeWeb.jpg"
+          imageUrl="/images/parallax-about.jpg"
           alt="Child demonstrating NanoVista flexible frame"
         />
 
@@ -49,7 +49,7 @@ export default function Home() {
 
         {/* Parallax break 3 */}
         <ParallaxBreak
-          imageUrl="https://nano-vista.com/wp-content/uploads/2025/07/Banner_Web_LocalizaTuOptica_ENG.jpg"
+          imageUrl="/images/parallax-store.jpg"
           alt="Find your nearest NanoVista stockist"
         />
 

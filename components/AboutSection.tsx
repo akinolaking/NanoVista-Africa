@@ -7,13 +7,6 @@ const STATS = [
   { num: '100%', label: 'Clinically\nendorsed' },
 ] as const
 
-const SEALS = [
-  { icon: '🛡️', label: 'Siliflex™ Patented' },
-  { icon: '✓',  label: '3 Year Warranty' },
-  { icon: '🌿', label: 'Eco Friendly' },
-  { icon: '○',  label: 'BPA Free' },
-] as const
-
 export default function AboutSection() {
   return (
     <section id="about" className="bg-white py-[100px] px-6">
@@ -40,19 +33,17 @@ export default function AboutSection() {
           paediatricians worldwide, now available across Nigeria &amp; West Africa.
         </p>
 
-        {/* Seals — inline badges replacing hotlink-blocked CDN image */}
-        <div className="sr d3 flex flex-wrap justify-center gap-3 mb-14">
-          {SEALS.map((seal) => (
-            <div
-              key={seal.label}
-              className="flex items-center gap-1.5 border border-[#8dc63f] rounded-pill px-4 py-2"
-            >
-              <span className="text-[13px]" aria-hidden="true">{seal.icon}</span>
-              <span className="font-heading font-bold text-[10px] tracking-[0.08em] uppercase text-[#555]">
-                {seal.label}
-              </span>
-            </div>
-          ))}
+        {/* Seals — Siliflex / Warranty / Eco / BPA Free */}
+        <div className="sr d3 flex justify-center mb-14">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/seals.jpg"
+            alt="Siliflex Patented — 3 Year Warranty — Eco Friendly — BPA Free"
+            loading="lazy"
+            width={460}
+            height={140}
+            className="max-w-[460px] w-full rounded-lg"
+          />
         </div>
 
         {/* Stats bar */}
