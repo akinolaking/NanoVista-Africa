@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const SLIDES = [
   {
@@ -11,42 +11,41 @@ const SLIDES = [
     src: '/images/slide-2-indestructible.jpg',
     alt: 'Nano Indestructible — unbreakable flexible frames for children',
   },
-  {
-    src: '/images/slide-3-myopia.jpg',
-    alt: 'MYOP-K — myopia management lenses for children',
-  },
-  {
-    src: '/images/slide-4-sport.jpg',
-    alt: 'Nano Sport — protective sports eyewear for children',
-  },
 ] as const
 
-const AUTOPLAY_MS = 5500
+const AUTOPLAY_MS = 7000
+const TRANSITION_MS = 700
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0)
+  const [transitioning, setTransitioning] = useState(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const touchStartX = useRef(0)
 
-  const go = useCallback((n: number) => {
-    setCurrent(((n % SLIDES.length) + SLIDES.length) % SLIDES.length)
-  }, [])
+  const go = (n: number) => {
+    if (transitioning) return
+    const next = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length
+    if (next === current) return
+    setTransitioning(true)
+    setCurrent(next)
+    setTimeout(() => setTransitioning(false), TRANSITION_MS)
+  }
 
-  const next = useCallback(() => go(current + 1), [current, go])
-  const prev = useCallback(() => go(current - 1), [current, go])
+  const next = () => go(current + 1)
+  const prev = () => go(current - 1)
 
-  /* Autoplay */
-  const resetTimer = useCallback(() => {
+  const resetTimer = () => {
     if (timerRef.current) clearInterval(timerRef.current)
     timerRef.current = setInterval(() => {
       setCurrent((c) => (c + 1) % SLIDES.length)
     }, AUTOPLAY_MS)
-  }, [])
+  }
 
   useEffect(() => {
     resetTimer()
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
-  }, [resetTimer])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   /* Keyboard */
   useEffect(() => {
@@ -56,7 +55,8 @@ export default function HeroSlider() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [next, prev, resetTimer])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current])
 
   const handleSlide = (n: number) => { go(n); resetTimer() }
 
@@ -74,8 +74,12 @@ export default function HeroSlider() {
     >
       {/* Track */}
       <div
-        className="flex h-full transition-transform duration-700 ease-spring will-change-transform"
-        style={{ transform: `translateX(-${current * 100}%)`, width: `${SLIDES.length * 100}%` }}
+        className="flex h-full will-change-transform"
+        style={{
+          transform: `translateX(-${current * 100}%)`,
+          width: `${SLIDES.length * 100}%`,
+          transition: `transform ${TRANSITION_MS}ms cubic-bezier(0.4, 0, 0.2, 1)`,
+        }}
       >
         {SLIDES.map((slide, i) => (
           // eslint-disable-next-line @next/next/no-img-element

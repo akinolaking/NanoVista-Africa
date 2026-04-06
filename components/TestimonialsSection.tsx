@@ -45,10 +45,9 @@ export default function TestimonialsSection() {
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      go(current + 1)
+      setCurrent((c) => (c + 1) % QUOTES.length)
     }, AUTOPLAY_MS)
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 const STORE_URL = 'https://optixwarehouse.com.ng/store/nanoafrica/'
 
 const COLLECTIONS = [
@@ -48,14 +46,15 @@ export default function CollectionsSection() {
               className={`col-card sr ${col.delay} group`}
             >
               <div className="relative overflow-hidden">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={col.image}
                   alt={`${col.name} — ${col.age}`}
-                  width={600}
-                  height={220}
                   className="w-full h-[220px] object-cover object-center transition-transform duration-450 group-hover:scale-105"
                   loading="lazy"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  decoding="async"
+                  width={600}
+                  height={220}
                 />
               </div>
 
@@ -65,7 +64,7 @@ export default function CollectionsSection() {
                 style={{ background: '#8dc63f' }}
               >
                 <div>
-                  <div className="font-heading font-extrabold text-[12px] tracking-[0.12em] uppercase text-white">
+                  <div className="font-heading font-bold text-[12px] tracking-[0.12em] uppercase text-white">
                     {col.name}
                   </div>
                   <div className="font-body text-[11px] font-bold text-white/75 mt-0.5">
