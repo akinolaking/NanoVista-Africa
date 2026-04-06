@@ -13,7 +13,7 @@ export default function StoreCTA() {
   return (
     <section
       id="store"
-      className="relative overflow-hidden py-[100px] px-6 text-center"
+      className="relative overflow-hidden py-[100px] px-6"
       style={{ background: '#8dc63f' }}
     >
       {/* Gradient + dot texture */}
@@ -31,19 +31,19 @@ export default function StoreCTA() {
         aria-hidden="true"
       />
 
-      <div className="max-w-md mx-auto relative z-10">
+      <div className="max-w-page mx-auto relative z-10">
 
         <span className="kicker-white sr">Official West Africa Collection</span>
 
         <h2
           className="sr d1 font-heading font-bold text-white uppercase leading-[1.05] mb-5"
-          style={{ fontSize: 'clamp(32px, 5.5vw, 72px)' }}
+          style={{ fontSize: 'clamp(32px, 5vw, 68px)' }}
         >
-          Browse the Full<br />NanoVista Africa Range
+          Browse the Full NanoVista Africa Range
         </h2>
 
         <p
-          className="sr d2 font-body text-white/90 leading-[1.8] max-w-[580px] mx-auto mb-11"
+          className="sr d2 font-body text-white/90 leading-[1.8] max-w-[580px] mb-11"
           style={{ fontSize: 'clamp(15px, 1.6vw, 19px)' }}
         >
           All frames &mdash; prescription glasses, sunglasses, sports eyewear and
@@ -52,7 +52,7 @@ export default function StoreCTA() {
         </p>
 
         {/* CTA buttons */}
-        <div className="sr d3 flex flex-wrap gap-4 justify-center mb-11">
+        <div className="sr d3 flex flex-wrap gap-4 mb-11">
           <a
             href={STORE_URL}
             target="_blank"
@@ -77,7 +77,7 @@ export default function StoreCTA() {
         </p>
 
         {/* Age pills */}
-        <div className="sr d5 flex flex-wrap gap-2.5 justify-center">
+        <div className="sr d5 flex flex-wrap gap-2.5">
           {AGE_PILLS.map((pill) => (
             <span
               key={pill}

@@ -1,7 +1,7 @@
 export default function MissionSection() {
   return (
     <section
-      className="relative overflow-hidden py-[100px] px-6 text-center"
+      className="relative overflow-hidden py-[100px] px-6"
       style={{ background: '#8dc63f' }}
     >
       {/* Dot texture overlay */}
@@ -14,7 +14,7 @@ export default function MissionSection() {
         aria-hidden="true"
       />
 
-      <div className="max-w-sm mx-auto relative z-10">
+      <div className="max-w-page mx-auto relative z-10">
         <span className="kicker-white sr">At NanoVista Africa We Have A</span>
 
         <h2
@@ -24,7 +24,7 @@ export default function MissionSection() {
           Super Mission:
         </h2>
 
-        <p className="sr d2 font-body text-white/92 leading-[1.85] mb-4"
+        <p className="sr d2 font-body text-white/90 leading-[1.85] mb-4 max-w-[640px]"
           style={{ fontSize: 'clamp(15px, 1.6vw, 19px)' }}
         >
           Continuous innovation to always offer the best glasses for babies, children
