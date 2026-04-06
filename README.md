@@ -58,3 +58,4 @@ For future form integrations (contact/stockist forms), add:
 - NanoVista Africa is the **official franchise** for Nigeria and West Africa
 - All products are genuine NanoVista (Spain) — not grey market imports
 - The site intentionally excludes product shop/cart pages per project brief
+
