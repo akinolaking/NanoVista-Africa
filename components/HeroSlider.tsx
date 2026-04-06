@@ -76,7 +76,7 @@ export default function HeroSlider() {
       <div
         className="flex h-full will-change-transform"
         style={{
-          transform: `translateX(-${current * 100}%)`,
+          transform: `translateX(-${current * (100 / SLIDES.length)}%)`,
           width: `${SLIDES.length * 100}%`,
           transition: `transform ${TRANSITION_MS}ms cubic-bezier(0.4, 0, 0.2, 1)`,
         }}
