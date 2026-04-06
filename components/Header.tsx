@@ -93,31 +93,17 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Search + hamburger */}
-          <div className="flex items-center gap-3">
-            <div className="hidden md:flex items-center gap-2 bg-white/20 rounded-lg px-3.5 py-2 focus-within:bg-white/30 transition-colors">
-              <svg className="text-white shrink-0" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-              </svg>
-              <input
-                type="search"
-                placeholder="Search frames…"
-                aria-label="Search NanoVista Africa"
-                className="bg-transparent border-none outline-none text-white font-body text-[13px] w-[120px] placeholder:text-white/60"
-              />
-            </div>
-
-            <button
-              className="md:hidden flex flex-col gap-[5px] p-1"
-              onClick={() => setMenuOpen((o) => !o)}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={menuOpen}
-            >
-              <span className={`block w-[22px] h-[2px] bg-white rounded-sm transition-transform duration-300 ${hamTop}`} />
-              <span className={`block w-[22px] h-[2px] bg-white rounded-sm transition-opacity duration-300 ${hamMid}`} />
-              <span className={`block w-[22px] h-[2px] bg-white rounded-sm transition-transform duration-300 ${hamBot}`} />
-            </button>
-          </div>
+          {/* Hamburger — mobile only */}
+          <button
+            className="md:hidden flex flex-col gap-[5px] p-1"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            <span className={`block w-[22px] h-[2px] bg-white rounded-sm transition-transform duration-300 ${hamTop}`} />
+            <span className={`block w-[22px] h-[2px] bg-white rounded-sm transition-opacity duration-300 ${hamMid}`} />
+            <span className={`block w-[22px] h-[2px] bg-white rounded-sm transition-transform duration-300 ${hamBot}`} />
+          </button>
         </div>
       </header>
 

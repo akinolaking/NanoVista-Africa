@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import Image from 'next/image'
 
 const SLIDES = [
   {
@@ -79,14 +78,14 @@ export default function HeroSlider() {
         style={{ transform: `translateX(-${current * 100}%)`, width: `${SLIDES.length * 100}%` }}
       >
         {SLIDES.map((slide, i) => (
-          <div key={slide.src} className="relative h-full" style={{ width: `${100 / SLIDES.length}%` }}>
-            <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <div key={slide.src} className="relative h-full shrink-0" style={{ width: `${100 / SLIDES.length}%` }}>
+            <img
               src={slide.src}
               alt={slide.alt}
-              fill
-              className="object-cover object-top"
-              priority={i === 0}
-              sizes="100vw"
+              className="absolute inset-0 w-full h-full object-cover object-top"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding={i === 0 ? 'sync' : 'async'}
             />
           </div>
         ))}
