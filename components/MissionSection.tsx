@@ -18,7 +18,7 @@ export default function MissionSection() {
         <span className="kicker-white sr">At NanoVista Africa We Have A</span>
 
         <h2
-          className="sr d1 font-heading font-black text-white uppercase leading-[1.05] mb-6"
+          className="sr d1 font-heading font-bold text-white uppercase leading-[1.05] mb-6"
           style={{ fontSize: 'clamp(34px, 5.5vw, 68px)' }}
         >
           Super Mission:

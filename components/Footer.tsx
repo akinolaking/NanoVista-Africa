@@ -56,7 +56,7 @@ export default function Footer() {
       {/* SEO block */}
       <div className="bg-white py-16 px-6 text-center border-t border-[#eee]">
         <div className="max-w-[860px] mx-auto">
-          <h2 className="font-heading font-black text-[14px] uppercase tracking-[0.08em] text-body mb-[18px]">
+          <h2 className="font-heading font-bold text-[14px] uppercase tracking-[0.08em] text-body mb-[18px]">
             NanoVista Africa &mdash; Indestructible and Flexible Children&rsquo;s Glasses
           </h2>
           <p className="font-body text-[13px] text-[#999] leading-[1.9]">

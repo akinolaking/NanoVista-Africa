@@ -7,6 +7,13 @@ const STATS = [
   { num: '100%', label: 'Clinically\nendorsed' },
 ] as const
 
+const SEALS = [
+  { icon: '🛡️', label: 'Siliflex™ Patented' },
+  { icon: '✓',  label: '3 Year Warranty' },
+  { icon: '🌿', label: 'Eco Friendly' },
+  { icon: '○',  label: 'BPA Free' },
+] as const
+
 export default function AboutSection() {
   return (
     <section id="about" className="bg-white py-[100px] px-6">
@@ -16,7 +23,7 @@ export default function AboutSection() {
 
         {/* Outlined heading — NanoVista brand signature */}
         <h2
-          className="sr d1 font-heading font-black uppercase leading-none tracking-tight mb-7"
+          className="sr d1 font-heading font-bold uppercase leading-none tracking-tight mb-7"
           style={{
             fontSize: 'clamp(40px, 8vw, 104px)',
             WebkitTextStroke: '3px #8dc63f',
@@ -27,40 +34,37 @@ export default function AboutSection() {
           Experts in Children<br />Visual Health
         </h2>
 
-        <p className="sr d2 font-body text-[#555] leading-[1.85] text-[clamp(15px,1.4vw,17px)] max-w-[680px] mx-auto mb-12">
-          Your child&rsquo;s glasses should survive them — not the other way around.
-          NanoVista Africa brings the world&rsquo;s leading children&rsquo;s eyewear brand
-          to Nigeria and West Africa. Clinically endorsed, paediatrician-recommended,
-          and built from Siliflex&trade; — the only material that bends, stretches and
-          always comes back.
+        {/* 2-line max description */}
+        <p className="sr d2 font-body text-[#555] leading-[1.75] text-[clamp(15px,1.4vw,17px)] mb-10">
+          Stop replacing broken frames. Built from Siliflex&trade; &mdash; endorsed by
+          paediatricians worldwide, now available across Nigeria &amp; West Africa.
         </p>
 
-        {/* Seals — Siliflex / Warranty / Eco / BPA Free */}
-        <div className="sr d3 flex justify-center mb-14">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://nano-vista.com/wp-content/uploads/2021/09/Info-Sellos-ING-v5.jpg"
-            alt="Siliflex Patented — 3 Year Warranty — Eco Friendly — BPA Free"
-            loading="lazy"
-            width={460}
-            height={140}
-            className="max-w-[460px] w-full rounded-lg"
-          />
+        {/* Seals — inline badges replacing hotlink-blocked CDN image */}
+        <div className="sr d3 flex flex-wrap justify-center gap-3 mb-14">
+          {SEALS.map((seal) => (
+            <div
+              key={seal.label}
+              className="flex items-center gap-1.5 border border-[#8dc63f] rounded-pill px-4 py-2"
+            >
+              <span className="text-[13px]" aria-hidden="true">{seal.icon}</span>
+              <span className="font-heading font-bold text-[10px] tracking-[0.08em] uppercase text-[#555]">
+                {seal.label}
+              </span>
+            </div>
+          ))}
         </div>
 
-        {/* Stats bar — Paper data display component */}
+        {/* Stats bar */}
         <div
           className="sr d4 grid grid-cols-2 md:grid-cols-4 border border-[#e8e8e8] rounded-card overflow-hidden"
           style={{ background: '#e8e8e8', gap: '1px' }}
         >
           {STATS.map((stat) => (
-            <div
-              key={stat.num}
-              className="stat-cell"
-            >
+            <div key={stat.num} className="stat-cell">
               <div
-                className="font-heading font-black text-primary leading-none mb-1.5"
-                style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}
+                className="font-heading font-bold text-primary leading-none mb-1.5"
+                style={{ fontSize: 'clamp(28px, 3.5vw, 44px)' }}
               >
                 {stat.num}
               </div>

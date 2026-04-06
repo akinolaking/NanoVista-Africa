@@ -26,7 +26,7 @@ export default function CollectionsSection() {
         <div className="text-center mb-14">
           <span className="kicker sr">Browse by Collection</span>
           <h2
-            className="sr d1 font-heading font-black uppercase text-body mb-4"
+            className="sr d1 font-heading font-bold uppercase text-body mb-4"
             style={{ fontSize: 'clamp(28px, 4vw, 54px)', lineHeight: 1 }}
           >
             True Experts in<br />Children&rsquo;s Glasses

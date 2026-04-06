@@ -48,7 +48,7 @@ export default function ContactSection() {
           {(['FIND YOUR', 'NEAREST', 'NANO GLASSES'] as const).map((line, i) => (
             <span
               key={line}
-              className={`sr ${['', 'd1', 'd2'][i]} block font-heading font-black uppercase`}
+              className={`sr ${['', 'd1', 'd2'][i]} block font-heading font-bold uppercase`}
               style={{
                 fontSize: 'clamp(36px, 9vw, 118px)',
                 WebkitTextStroke: '3px #8dc63f',
@@ -61,7 +61,7 @@ export default function ContactSection() {
           ))}
           {/* Solid green "STORE" */}
           <span
-            className="sr d3 block font-heading font-black uppercase mb-13"
+            className="sr d3 block font-heading font-bold uppercase mb-13"
             style={{
               fontSize: 'clamp(36px, 9vw, 118px)',
               color: '#8dc63f',

@@ -36,7 +36,7 @@ export default function StoreCTA() {
         <span className="kicker-white sr">Official West Africa Collection</span>
 
         <h2
-          className="sr d1 font-heading font-black text-white uppercase leading-[1.05] mb-5"
+          className="sr d1 font-heading font-bold text-white uppercase leading-[1.05] mb-5"
           style={{ fontSize: 'clamp(32px, 5.5vw, 72px)' }}
         >
           Browse the Full<br />NanoVista Africa Range
