@@ -53,9 +53,9 @@ export default function TestimonialsSection() {
 
   return (
     <>
-      {/* White lead-in */}
-      <section className="bg-white py-16 px-6 text-center">
-        <div className="max-w-sm mx-auto">
+      {/* White lead-in — left-aligned */}
+      <section className="bg-white py-16 px-6">
+        <div className="max-w-page mx-auto">
           <p className="sr font-body text-[15px] text-[#999] mb-3.5 leading-[1.7]">
             But what really fills us with satisfaction is the voice of the true experts&hellip;
           </p>
@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
             className="sr d1 font-heading font-bold italic leading-[1.2]"
             style={{ fontSize: 'clamp(24px, 3.5vw, 42px)', color: '#8dc63f' }}
           >
-            YOU,<br />fathers and mothers of West Africa!
+            YOU, fathers and mothers of West Africa!
           </h2>
         </div>
       </section>

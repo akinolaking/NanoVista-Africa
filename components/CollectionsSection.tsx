@@ -23,15 +23,15 @@ export default function CollectionsSection() {
       <div className="max-w-page mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="mb-14">
           <span className="kicker sr">Browse by Collection</span>
           <h2
             className="sr d1 font-heading font-bold uppercase text-body mb-4"
             style={{ fontSize: 'clamp(28px, 4vw, 54px)', lineHeight: 1 }}
           >
-            True Experts in<br />Children&rsquo;s Glasses
+            True Experts in Children&rsquo;s Glasses
           </h2>
-          <p className="sr d2 font-body text-[#555] text-[clamp(15px,1.4vw,17px)] leading-[1.85] max-w-[560px] mx-auto">
+          <p className="sr d2 font-body text-[#555] text-[clamp(15px,1.4vw,17px)] leading-[1.85] max-w-[560px]">
             Every collection is designed for a specific age, need and lifestyle.
             Browse all frames at our authorised West Africa partner store.
           </p>

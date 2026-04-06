@@ -232,7 +232,7 @@ button {
     background: var(--color-light);
     border-radius: var(--radius-card);
     padding: 36px 28px;
-    text-align: center;
+    text-align: left;
     border: 1px solid #e8e8e8;
     transition: transform 0.25s, box-shadow 0.25s, background 0.2s;
   }
@@ -246,7 +246,7 @@ button {
   .stat-cell {
     background: #ffffff;
     padding: 28px 20px;
-    text-align: center;
+    text-align: left;
     transition: background 0.2s;
   }
   .stat-cell:hover {

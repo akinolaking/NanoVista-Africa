@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 const STATS = [
   { num: '#1',   label: "Children's brand\nin Spain" },
   { num: '300+', label: 'Frame styles\navailable' },
@@ -10,31 +8,31 @@ const STATS = [
 export default function AboutSection() {
   return (
     <section id="about" className="bg-white py-[100px] px-6">
-      <div className="max-w-md mx-auto text-center">
+      <div className="max-w-page mx-auto">
 
         <span className="kicker sr">Indestructible &amp; Flexible Children&rsquo;s Glasses</span>
 
-        {/* Outlined heading — NanoVista brand signature */}
+        {/* Outlined heading — wide container lets it sit on 2 lines naturally */}
         <h2
-          className="sr d1 font-heading font-bold uppercase leading-none tracking-tight mb-7"
+          className="sr d1 font-heading font-bold uppercase tracking-tight mb-7"
           style={{
-            fontSize: 'clamp(40px, 8vw, 104px)',
+            fontSize: 'clamp(36px, 5vw, 72px)',
             WebkitTextStroke: '3px #8dc63f',
             color: 'transparent',
             lineHeight: 0.96,
           }}
         >
-          Experts in Children<br />Visual Health
+          Experts in Children Visual Health
         </h2>
 
-        {/* 2-line max description */}
-        <p className="sr d2 font-body text-[#555] leading-[1.75] text-[clamp(15px,1.4vw,17px)] mb-10">
+        {/* Description — max 2 lines, left-aligned */}
+        <p className="sr d2 font-body text-[#555] leading-[1.75] text-[clamp(15px,1.4vw,17px)] max-w-[640px] mb-10">
           Stop replacing broken frames. Built from Siliflex&trade; &mdash; endorsed by
           paediatricians worldwide, now available across Nigeria &amp; West Africa.
         </p>
 
-        {/* Seals — Siliflex / Warranty / Eco / BPA Free */}
-        <div className="sr d3 flex justify-center mb-14">
+        {/* Seals — local image, left-aligned */}
+        <div className="sr d3 flex mb-14">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/seals.jpg"
@@ -46,10 +44,10 @@ export default function AboutSection() {
           />
         </div>
 
-        {/* Stats bar */}
+        {/* Stats bar — 3px gap gives visible cell separation */}
         <div
           className="sr d4 grid grid-cols-2 md:grid-cols-4 border border-[#e8e8e8] rounded-card overflow-hidden"
-          style={{ background: '#e8e8e8', gap: '1px' }}
+          style={{ background: '#e8e8e8', gap: '3px' }}
         >
           {STATS.map((stat) => (
             <div key={stat.num} className="stat-cell">

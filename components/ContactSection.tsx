@@ -40,7 +40,7 @@ const CONTACTS = [
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="bg-white py-[100px] px-6 text-center">
+    <section id="contact" className="bg-white py-[100px] px-6">
       <div className="max-w-page mx-auto">
 
         {/* Stacked outlined heading */}
@@ -90,7 +90,7 @@ export default function ContactSection() {
             <div key={card.label} className="contact-card">
               {/* Icon circle */}
               <div
-                className="w-[52px] h-[52px] rounded-full flex items-center justify-center mx-auto mb-[18px] text-white"
+                className="w-[52px] h-[52px] rounded-full flex items-center justify-center mb-[18px] text-white"
                 style={{ background: '#8dc63f', boxShadow: '0 4px 24px rgba(141,198,63,0.35)' }}
               >
                 {card.icon}
