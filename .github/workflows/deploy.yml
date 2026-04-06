@@ -1,0 +1,35 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+      - claude/extract-nanovista-plan-Twb10
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy (Production)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy to Vercel
+        run: |
+          npm install -g vercel
+          vercel --prod --yes \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=akinolakings-projects
