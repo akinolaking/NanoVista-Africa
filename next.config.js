@@ -2,14 +2,10 @@
 const nextConfig = {
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "nano-vista.com",
-      },
+      { protocol: "https", hostname: "nano-vista.com" },
     ],
   },
   compress: true,
   poweredByHeader: false,
 };
-
 module.exports = nextConfig;

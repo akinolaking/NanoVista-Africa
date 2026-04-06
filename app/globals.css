@@ -1,64 +1,112 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap');
+/* Paper Design base — overridden with NanoVista brand */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Roboto:wght@300;400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --nano-green: #8dc63f;
-  --nano-green-dark: #6ba82e;
-  --nano-dark: #1a1a1a;
-  --nano-mid: #333333;
-  --nano-light: #f7f7f7;
-  --nano-purple: #8e44ad;
+  --green:      #8dc63f;
+  --green-dk:   #6aaa1e;
+  --teal:       #2ecc8e;
+  --purple:     #9b59b6;
+  --white:      #ffffff;
+  --light:      #f4f4f4;
+  --dark:       #333333;
+  --muted:      #888888;
 }
 
-* { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Open Sans', sans-serif; color: #333333; background: #fff; }
-h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
 
-@keyframes fadeSlide {
-  0% { opacity: 0; transform: translateX(24px); }
-  100% { opacity: 1; transform: translateX(0); }
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--dark);
+  background: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+
+h1,h2,h3,h4,h5,h6 { font-family: 'Montserrat', sans-serif; }
+
+/* Parallax utility — applied to fixed-bg sections */
+.parallax-bg {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.animate-fadeSlide { animation: fadeSlide 0.55s ease forwards; }
-.animate-fadeUp { animation: fadeUp 0.6s ease forwards; }
 
-.nav-link { position: relative; }
-.nav-link::after {
-  content: ''; position: absolute; bottom: -4px; left: 0;
-  width: 0; height: 2px; background: #fff;
-  transition: width 0.25s ease;
-}
-.nav-link:hover::after { width: 100%; }
-
-.dropdown { position: relative; }
-.dropdown-menu {
-  display: none; position: absolute; top: 100%; left: 0;
-  min-width: 240px; background: #fff; box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-  z-index: 100; border-top: 3px solid #8dc63f;
-}
-.dropdown:hover .dropdown-menu { display: block; }
-
-.card-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-
-.slider-track { display: flex; transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.ticker-inner { animation: ticker 25s linear infinite; display: flex; width: max-content; }
-.ticker-inner:hover { animation-play-state: paused; }
-
-/* Outlined stroke text for Experts heading */
-.text-stroke-green {
-  -webkit-text-stroke: 3px #8dc63f;
+/* Outlined / hollow heading text — NanoVista style on green bands */
+.text-outline {
+  -webkit-text-stroke: 2px white;
   color: transparent;
+}
+
+/* Pill button — NanoVista CTA style */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--green);
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  border-radius: 30px;
+  transition: background 0.2s, transform 0.15s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-pill:hover {
+  background: var(--green-dk);
+  transform: translateY(-1px);
+}
+.btn-pill-outline {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+.btn-pill-outline:hover {
+  background: white;
+  color: var(--green);
+}
+
+/* Scroll reveal base state */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Collection card — from screenshots, rounded corners + green label */
+.collection-card {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.collection-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+}
+
+/* Mobile nav */
+@media (max-width: 900px) {
+  .parallax-bg {
+    background-attachment: scroll;
+  }
 }

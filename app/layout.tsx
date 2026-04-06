@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NanoVista Africa | Indestructible & Flexible Children's Eyewear",
-  description:
-    "NanoVista Africa is the official NanoVista franchise for Nigeria and West Africa. Discover indestructible, flexible eyewear for babies, children and teenagers.",
-  keywords: "children glasses Nigeria, kids eyewear West Africa, NanoVista Africa, indestructible glasses children",
+  title: "Indestructible and Flexible Glasses for Kids | NanoVista Africa",
+  description: "NanoVista Africa is the official NanoVista franchise for Nigeria and West Africa. Indestructible, flexible eyewear for babies, children and teenagers aged 0 to 16.",
+  keywords: "children glasses Nigeria, kids eyewear West Africa, NanoVista Africa, indestructible glasses children, flexible kids glasses Lagos, Siliflex",
   openGraph: {
-    title: "NanoVista Africa | Children's Eyewear Nigeria & West Africa",
-    description: "Official NanoVista franchise for Nigeria and West Africa",
+    title: "NanoVista Africa | Indestructible Children's Eyewear",
+    description: "Official NanoVista franchise for Nigeria and West Africa. Indestructible, flexible eyewear from 0 to 16 years.",
     url: "https://nanovista.africa",
     siteName: "NanoVista Africa",
     locale: "en_NG",

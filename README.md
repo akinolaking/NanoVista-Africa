@@ -1,61 +1,48 @@
 # NanoVista Africa — nanovista.africa
 
-Official website for NanoVista Africa — the Nigeria & West Africa franchise of NanoVista Spain.
+Official parallax homepage for NanoVista Africa, the NanoVista franchise for Nigeria and West Africa.
 
 ## Stack
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS + custom CSS animations
-- **Fonts**: Montserrat (headings) + Open Sans (body) via Google Fonts
-- **Deployment**: Vercel (configured via vercel.json)
+- Next.js 14 (App Router) · TypeScript · Tailwind CSS
+- motion (animate-ui engine) · Lucide React
+- Paper Design tokens (TypeUI) overridden with NanoVista brand
 
-## Pages
-| Route | Description |
-|---|---|
-| `/` | Homepage — hero slider, collections, mission, Africa section, testimonials, store finder CTA, learn teaser |
-| `/find-a-store` | Authorised stockist locator by city |
-| `/become-a-stockist` | Application page for optical professionals |
-| `/collections/[slug]` | Individual collection pages (8 collections) |
-| `/learn` | Eye health blog index |
-| `/about` | About NanoVista Africa |
-| `/contact` | Contact page with form |
+## Brand Colours (from source screenshots)
+| Token | Hex | Role |
+|---|---|---|
+| Green (primary) | `#8dc63f` | Nav, section bands, CTAs, headings |
+| Green dark | `#6aaa1e` | Hover states |
+| Teal | `#2ecc8e` | Accent sections |
+| Purple | `#9b59b6` | Endorsement panel |
+| Light grey | `#f4f4f4` | Footer, alt sections |
+| Grey bar | `#888888` | Copyright strip |
+
+## Parallax Section Order
+1. Sticky green header (nav)
+2. Hero image slider — 4 slides, real NanoVista CDN images
+3. Experts / About — outlined heading + Siliflex seals
+4. Parallax photo break 1 — child bending frame
+5. Mission band (green) — Super Mission text
+6. Endorsement split — purple + SJD/SFO/AAO logos
+7. Testimonials carousel (green) — West African names
+8. Parallax photo break 2 — NanoBot banner
+9. True Experts band — large outlined text (green parallax)
+10. White intro text
+11. Browse CTA (green) — links to optixwarehouse.com.ng/store/nanoafrica/
+12. Parallax photo break 3 — Find Your Store banner
+13. Find Your Store — outlined text + pill CTA
+14. Footer — grey, 3-col, social icons, copyright bar
+
+## Shop URL
+All collection links → https://optixwarehouse.com.ng/store/nanoafrica/
 
 ## Deploy to Vercel
-
-### Option 1 — Vercel CLI
 ```bash
-npm install -g vercel
-vercel login
+npm install
 vercel --prod
 ```
+Then add domain: nanovista.africa in Vercel dashboard.
 
-### Option 2 — GitHub + Vercel Dashboard
-1. Push this repo to GitHub
-2. Go to vercel.com → New Project → Import from GitHub
-3. Select repo — Vercel auto-detects Next.js
-4. Set custom domain: `nanovista.africa`
-5. Deploy
-
-### Option 3 — Vercel Dashboard drag-and-drop
-1. Run `npm run build` locally
-2. Zip the entire project folder
-3. Drag into Vercel dashboard
-
-## Environment Variables
-None required for the base site.
-
-For future form integrations (contact/stockist forms), add:
-- `RESEND_API_KEY` — for email delivery
-- `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` — for store locator map
-
-## Customisation
-- **Brand colours**: `#e30613` (red), `#1a1a1a` (dark), `#f7941d` (orange accent) — all in `globals.css` and inline
-- **Store data**: Edit `app/find-a-store/page.tsx` → `stores` array
-- **Collections**: Edit `app/collections/[slug]/page.tsx` → `collectionData` object
-- **Hero slides**: Edit `components/HeroSlider.tsx` → `slides` array
-- **Testimonials**: Edit `components/Testimonials.tsx` → `testimonials` array
-
-## Brand Notes
-- NanoVista Africa is the **official franchise** for Nigeria and West Africa
-- All products are genuine NanoVista (Spain) — not grey market imports
-- The site intentionally excludes product shop/cart pages per project brief
-
+## Images
+All images reference nano-vista.com CDN directly (franchise has copyright).
+They load in browser — the build server cannot download them (403 at tunnel level).

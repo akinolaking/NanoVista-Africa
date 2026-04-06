@@ -1,61 +1,58 @@
+"use client";
+
 export default function FindStore() {
   return (
-    <section className="py-20 bg-[#e30613] relative overflow-hidden">
-      {/* Background pattern */}
-      <svg
-        className="absolute inset-0 w-full h-full opacity-10"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <pattern id="fp" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-          <circle cx="30" cy="30" r="20" fill="none" stroke="white" strokeWidth="1" />
-          <circle cx="30" cy="30" r="10" fill="none" stroke="white" strokeWidth="1" />
-        </pattern>
-        <rect width="100%" height="100%" fill="url(#fp)" />
-      </svg>
+    <section className="bg-white py-20 px-6 text-center">
+      <div className="max-w-3xl mx-auto">
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-        <div className="inline-block bg-white/20 text-white text-xs font-heading font-bold tracking-[0.25em] px-3 py-1 mb-6">
-          AUTHORISED STOCKISTS
+        {/* Large stacked outlined text — matches screenshot exactly */}
+        <div
+          className="reveal font-heading font-black uppercase leading-none mb-2"
+          style={{
+            fontSize: "clamp(40px, 8.5vw, 110px)",
+            WebkitTextStroke: "2px #8dc63f",
+            color: "transparent",
+            lineHeight: 0.95,
+          }}
+        >
+          <div>FIND YOUR</div>
+          <div>NEAREST</div>
+          <div>NANO GLASSES</div>
         </div>
-        <h2 className="text-4xl md:text-6xl font-heading font-black text-white mb-6 leading-none">
-          FIND YOUR
-          <br />
-          NEAREST STORE.
-        </h2>
-        <p className="text-white/80 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-          NanoVista is only available through authorised optical professionals.
-          Use our store locator to find a certified stockist near you in Nigeria
-          and West Africa.
-        </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        {/* "STORE" — solid green fill, not outlined */}
+        <div
+          className="reveal reveal-delay-1 font-heading font-black uppercase mb-10"
+          style={{
+            fontSize: "clamp(40px, 8.5vw, 110px)",
+            color: "#8dc63f",
+            lineHeight: 0.95,
+          }}
+        >
+          STORE
+        </div>
+
+        {/* Pill CTA */}
+        <div className="reveal reveal-delay-2">
           <a
-            href="/find-a-store"
-            className="inline-flex items-center justify-center gap-2 bg-white text-[#e30613] text-sm font-heading font-black px-8 py-4 hover:bg-gray-100 transition-colors tracking-wider"
+            href="mailto:info@nanovista.africa"
+            className="btn-pill inline-block"
           >
-            🔍 FIND A STORE
-          </a>
-          <a
-            href="/become-a-stockist"
-            className="inline-flex items-center justify-center gap-2 border-2 border-white text-white text-sm font-heading font-bold px-8 py-4 hover:bg-white/10 transition-colors tracking-wider"
-          >
-            BECOME A STOCKIST →
+            Find a Stockist Near You
           </a>
         </div>
 
-        {/* Quick city links */}
-        <div className="flex flex-wrap justify-center gap-3">
-          {["Lagos", "Abuja", "Port Harcourt", "Kano", "Ibadan", "Accra", "Dakar"].map(
-            (city) => (
-              <a
-                key={city}
-                href={`/find-a-store?city=${city.toLowerCase()}`}
-                className="text-xs font-heading font-semibold text-white/70 hover:text-white border border-white/30 hover:border-white px-3 py-1.5 transition-colors"
-              >
-                {city}
-              </a>
-            )
-          )}
+        {/* Contact row */}
+        <div className="reveal reveal-delay-3 mt-12 flex flex-col sm:flex-row gap-6 justify-center items-center text-sm text-gray-400 font-body">
+          <a href="tel:+2348000626684" className="hover:text-[#8dc63f] transition-colors">
+            +234 800 NANOVISTA
+          </a>
+          <span className="hidden sm:block">|</span>
+          <a href="mailto:info@nanovista.africa" className="hover:text-[#8dc63f] transition-colors">
+            info@nanovista.africa
+          </a>
+          <span className="hidden sm:block">|</span>
+          <span>Lagos, Nigeria</span>
         </div>
       </div>
     </section>

@@ -1,123 +1,114 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const slides = [
+const BASE = "https://nano-vista.com/wp-content/uploads";
+
+const SLIDES = [
   {
-    id: 1,
-    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1920&q=80",
-    brandWord: "nano",
-    brandAccent: "CLIP",
-    accentColor: "#8dc63f",
+    img: `${BASE}/2026/02/Portada_Web_1920x560_CLIP_26.jpg`,
+    mobileImg: `${BASE}/2026/02/Banner_Carrusel_Mobile_NANO-CLIP_2026.jpg`,
   },
   {
-    id: 2,
-    image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1920&q=80",
-    brandWord: "nano",
-    brandAccent: "BABY",
-    accentColor: "#f7941d",
+    img: `${BASE}/2025/09/Banner_Web_NANO-INDESTRUCTIBLE_2025.jpg`,
+    mobileImg: `${BASE}/2025/09/Banner_Carrusel_Mobile_INDESTRUCTIBLE_2025.jpg`,
   },
   {
-    id: 3,
-    image: "https://images.unsplash.com/photo-1542103749-8ef59b94f47e?auto=format&fit=crop&w=1920&q=80",
-    brandWord: "nano",
-    brandAccent: "SPORT",
-    accentColor: "#00b0d8",
+    img: `${BASE}/2025/03/Banner_Home_Web_Escritorio_Slide4_ENG.jpg`,
+    mobileImg: `${BASE}/2025/03/Banner_Carrusel_Mobile_Principal_LENTES_MIOPIA_ENG.jpg`,
+  },
+  {
+    img: `${BASE}/2024/09/Banner_Home_Web_Escritorio_Slide2.jpg`,
+    mobileImg: `${BASE}/2024/09/Banners_Home_Web_Mobile_Slide2.jpg`,
   },
 ];
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
-
-  const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
-  const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const t = setInterval(next, 6000);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const next = useCallback(() => setCurrent((c) => (c + 1) % SLIDES.length), []);
+  const prev = useCallback(() => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length), []);
+
+  useEffect(() => {
+    const t = setInterval(next, 5000);
     return () => clearInterval(t);
   }, [next]);
 
-  const slide = slides[current];
+  // Touch swipe
+  let touchStart = 0;
 
   return (
-    <section className="relative w-full overflow-hidden" style={{ height: "clamp(420px, 55vw, 650px)" }}>
-      {/* Background photo */}
-      {slides.map((s, i) => (
-        <div
-          key={s.id}
-          className="absolute inset-0 transition-opacity duration-700"
-          style={{
-            opacity: i === current ? 1 : 0,
-            backgroundImage: `url(${s.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-          }}
-        />
-      ))}
-
-      {/* Light gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
-
-      {/* Brand name overlay — bottom-left, nano-vista.com style */}
-      <div className="absolute bottom-16 left-8 md:left-16 z-10">
-        <div
-          key={current}
-          className="animate-fadeUp font-heading font-black leading-none select-none"
-          style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
-        >
-          <span className="text-white drop-shadow-lg" style={{ fontStyle: "italic" }}>
-            {slide.brandWord}
-          </span>
-          <span
-            className="drop-shadow-lg"
-            style={{ color: slide.accentColor, fontStyle: "italic" }}
-          >
-            {slide.brandAccent}
-          </span>
-        </div>
+    <section
+      className="relative w-full overflow-hidden bg-gray-100"
+      style={{ height: "clamp(220px, 40vw, 560px)" }}
+      onTouchStart={(e) => { touchStart = e.touches[0].clientX; }}
+      onTouchEnd={(e) => {
+        const diff = touchStart - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+      }}
+    >
+      {/* Slides */}
+      <div
+        className="flex h-full transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${current * 100}%)`, width: `${SLIDES.length * 100}%` }}
+      >
+        {SLIDES.map((slide, i) => (
+          <div key={i} className="relative h-full" style={{ width: `${100 / SLIDES.length}%` }}>
+            <img
+              src={isMobile ? slide.mobileImg : slide.img}
+              alt={`NanoVista Africa slide ${i + 1}`}
+              className="w-full h-full object-cover object-center"
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        ))}
       </div>
 
-      {/* NanoVista logo watermark — bottom-right */}
-      <div className="absolute bottom-8 right-8 z-10 opacity-80">
-        <svg width="90" height="36" viewBox="0 0 90 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="22" fontFamily="Montserrat,sans-serif" fontWeight="900" fontSize="18" fill="white">nano</text>
-          <text x="0" y="34" fontFamily="Montserrat,sans-serif" fontWeight="900" fontSize="9" fill="white" letterSpacing="1">VISTA</text>
-          <text x="46" y="34" fontFamily="Montserrat,sans-serif" fontWeight="700" fontSize="7" fill="rgba(255,255,255,0.8)" letterSpacing="1">AFRICA</text>
-          <text x="68" y="22" fontFamily="sans-serif" fontSize="14" fill="white">🖐</text>
-        </svg>
-      </div>
-
-      {/* Dot indicators — centred bottom */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-        {slides.map((_, i) => (
+      {/* Dot navigation */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {SLIDES.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className="rounded-full transition-all duration-300"
+            aria-label={`Go to slide ${i + 1}`}
+            className="transition-all duration-300"
             style={{
-              width: i === current ? "28px" : "8px",
-              height: "8px",
-              background: i === current ? "#fff" : "rgba(255,255,255,0.5)",
+              width: i === current ? "28px" : "10px",
+              height: "10px",
+              borderRadius: "5px",
+              background: i === current ? "#8dc63f" : "rgba(255,255,255,0.6)",
+              border: "none",
+              cursor: "pointer",
             }}
-            aria-label={`Slide ${i + 1}`}
           />
         ))}
       </div>
 
-      {/* Arrow controls */}
+      {/* Arrows */}
       <button
         onClick={prev}
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 transition-colors backdrop-blur-sm"
-        aria-label="Previous"
+        aria-label="Previous slide"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/25 hover:bg-black/40 flex items-center justify-center transition-colors"
       >
-        <ChevronLeft size={22} />
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M11 4L6 9L11 14" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
       </button>
       <button
         onClick={next}
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 transition-colors backdrop-blur-sm"
-        aria-label="Next"
+        aria-label="Next slide"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/25 hover:bg-black/40 flex items-center justify-center transition-colors"
       >
-        <ChevronRight size={22} />
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M7 4L12 9L7 14" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
       </button>
     </section>
   );
